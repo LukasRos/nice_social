@@ -5,11 +5,11 @@ String.prototype.ireplaceAll = function(strReplace, strWith) {
     var reg = new RegExp(strReplace, 'ig');
     return this.replace(reg, strWith);
 };
-jQuery.fn.scrollTo = function(elem, speed) { 
+jQuery.fn.scrollTo = function(elem, speed) {
     $(this).animate({
-        scrollTop:  $(this).scrollTop() - $(this).offset().top + $(elem).offset().top 
-    }, speed === undefined ? 1000 : speed); 
-    return this; 
+        scrollTop:  $(this).scrollTop() - $(this).offset().top + $(elem).offset().top
+    }, speed === undefined ? 1000 : speed);
+    return this;
 };
 jQuery(function($) {
     window.store = new Object();
@@ -51,14 +51,14 @@ jQuery(function($) {
         }
         doHandyTextSwitch();
     });
-    $("#rpy-text").keydown(function (event) { 
-        if ( (event.metaKey || event.ctrlKey) && event.keyCode === KEY_ENTER ) { 
+    $("#rpy-text").keydown(function (event) {
+        if ( (event.metaKey || event.ctrlKey) && event.keyCode === KEY_ENTER ) {
             sendPost();
         }
         if ( $('#autocomp').hasClass('show') && event.keyCode === KEY_DOWNARROW) {
             $('#autocomp > .autobox > span:first-child').trigger("click");
             return false;
-        } 
+        }
     });
     $(document).keyup(function(e) {
         if ( readStorage('shortkey_n') == 'Y' ) {
@@ -172,7 +172,7 @@ window.addEventListener('load', function(){
             isLeftSwipe = (elapsedTime <= allowedTime && dist_l >= threshold && Math.abs(touchobj.pageY - startY) <= 100);
         handleswipe(isRightSwipe, isLeftSwipe);
         if ( isRightSwipe || isLeftSwipe ) { e.preventDefault(); }
-    }, false); 
+    }, false);
 }, false);
 document.getElementById('file').addEventListener('change', function(e) {
     var access_token = readStorage('access_token');
@@ -194,7 +194,7 @@ function loadConfigFile() {
 }
 function getFileObjectByType( file ) {
     var fileObj = false;
-    
+
     switch ( file.type ) {
         case 'audio/x-m4a':
         case 'audio/mpeg':
@@ -208,7 +208,7 @@ function getFileObjectByType( file ) {
                         'public': true
                        };
             break;
-        
+
         default:
             fileObj = { 'anno': "net.app.core.oembed",
                         'kind': "photo",
@@ -248,11 +248,11 @@ function continueLoadProcess() {
     if ( prepApp() ) {
         window.setInterval(function(){
             getGlobalItems();
-            redrawList(); 
+            redrawList();
         }, 1000);
         window.setInterval(function(){ collectRankSummary(); }, 60*60*1000);
         window.setInterval(function(){ updateTimestamps(); }, 15000);
-        
+
         /* Add the Moment.js Resources if Required */
         loadMomentIfRequired();
 
@@ -516,7 +516,7 @@ function checkIfRepeat( text ) {
         saveStorage('msgText', 'This post looks like your last one.<br>' +
                                ' Give me a moment. ADN might be slow.', true);
         if ( constructDialog('okbox') ) { toggleClassIfExists('okbox','hide','show'); }
-    } 
+    }
     return ( text !== last_posttext );
 }
 function buildJSONPost( text, in_reply_to ) {
@@ -541,7 +541,7 @@ function buildJSONPost( text, in_reply_to ) {
                                                 }
                                     });
                         break;
-                    
+
                     default:
                         oembed.push({ "type": window.files[idx].anno,
                                       "value": { "+net.app.core.file": { "file_id": window.files[idx].id,
@@ -564,7 +564,7 @@ function buildJSONPost( text, in_reply_to ) {
                                      "tstamp": (Date.now() | 0)
                                     }
                         });
-            
+
             /* Build the Public-facing Post */
             text = '';
             if ( post_title !== '' ) {
@@ -596,7 +596,7 @@ function buildJSONPost( text, in_reply_to ) {
             text: text,
             entities: {
                 parse_markdown_links: true,
-                parse_links: true             
+                parse_links: true
             }
         };
         if ( oembed !== false ) { params['annotations'] = oembed; }
@@ -613,7 +613,7 @@ function getUserProfile( user_id ) {
         include_machine: 0,
         include_muted: 1,
         include_html: 1,
-        count: 20        
+        count: 20
     };
     if ( access_token !== false ) { params.access_token = access_token; }
     toggleClassIfExists('dialog','hide','show');
@@ -657,7 +657,7 @@ function parseUserUsage( data ) {
                         '<blue>&nbsp;</blue>' +
                     '</span>';
         }
-        
+
         if ( readStorage('display_nrscore') === 'Y' ) { document.getElementById( 'history-score' ).innerHTML = 'NiceRank Score: ' + data.nicerank; }
         if ( readStorage('display_usage') === 'Y' ) {
             if ( html != '' ) { document.getElementById( 'history-bars' ).innerHTML = html; }
@@ -670,10 +670,10 @@ function getUserProfileActions( data ) {
                     '<li id="profile-drop" class="hide" onclick="toggleProfileDrop();">' +
                         '<i class="fa fa-cog"></i>' +
                         '<ul>' +
-                            '<li onClick="blockAccount(' + data.user.you_blocked + ', ' + data.user.id + ');">' + 
-                                ((data.user.you_blocked) ? 'Unblock' : 'Block') + 
+                            '<li onClick="blockAccount(' + data.user.you_blocked + ', ' + data.user.id + ');">' +
+                                ((data.user.you_blocked) ? 'Unblock' : 'Block') +
                             '</li>' +
-                            '<li onClick="muteAccount(' + data.user.you_muted + ', ' + data.user.id + ');">' + 
+                            '<li onClick="muteAccount(' + data.user.you_muted + ', ' + data.user.id + ');">' +
                                 ((data.user.you_muted) ? 'Listen Again' : 'Mute') +
                             '</li>' +
                             '<li onClick="reportAccount(' + data.user.id + ');">Report Spammer</li>' +
@@ -725,7 +725,7 @@ function parseUserProfile( data ) {
                 } else {
                     action_html = '&nbsp;';
                 }
-                
+
             } else {
                 action_html += '<span>I think this is you.</span>';
             }
@@ -788,7 +788,7 @@ function getMentions() {
             access_token: access_token,
             include_html: 1,
             count: 50
-        }; 
+        };
         $.ajax({
             url: window.apiURL + '/users/me/mentions',
             crossDomain: true,
@@ -859,7 +859,7 @@ function getGlobalItems() {
         include_machine: 0,
         include_html: 1,
         since_id: readStorage( 'since', true),
-        count: 200        
+        count: 200
     };
     if ( access_token !== false ) { params.access_token = access_token; }
     saveStorage('adn_action', 'Y', true);
@@ -1144,7 +1144,7 @@ function redrawList() {
     if ( counter >= 0 && counter < 10 ) {
         saveStorage( '_refresher', (counter + 1), true);
         return false;
-    } else { 
+    } else {
         saveStorage( '_refresher', '0', true);
     }
 
@@ -1157,7 +1157,7 @@ function redrawList() {
         if ( _home === 'Y' && _ment === 'Y' ) { setSplashMessage(''); }
         window.activate = true;
     }
-    
+
     if ( window.timelines.interact === true ) {
         if ( document.getElementById('interact').innerHTML === '' ) { $( "#interact" ).prepend(buffer); }
         for ( post_id in window.pulse ) {
@@ -1241,7 +1241,7 @@ function redrawList() {
                         }
                     }
                 }
-    
+
                 if ( window.timelines.global ) {
                     if ( checkElementExists(post_id + '-g') === false ) {
                         if ( global_showall || window.posts[post_id].followed === false ) {
@@ -1312,7 +1312,7 @@ function setWindowConstraints() {
     for (i in window.timelines) {
         if ( window.timelines.hasOwnProperty(i) ) { if ( window.timelines[i] ) { vCols++; } }
     }
-    
+
     while ( cWidth < 280 ) {
         vCols--;
         if ( vCols > 6 ) { vCols = 6; }
@@ -1373,7 +1373,7 @@ function setColumnsWidth( cWidth, cCount ) {
     css_style += (cCount === 1) ? ' max-width: 480px;' : ' max-width: ' + parseFloat(100 / cCount).toFixed(3) + '%;';
     for (i in window.timelines) {
         if ( window.timelines.hasOwnProperty(i) ) {
-            if ( window.timelines[i] ) { 
+            if ( window.timelines[i] ) {
                 if ( idx === vCols ) { css_style = 'border-right: 0; ' + css_style; }
                 if ( document.getElementById( i ).getAttribute('style') !== css_style ) {
                     document.getElementById( i ).setAttribute('style',css_style);
@@ -1389,7 +1389,7 @@ function constructDialog( dialog_id ) {
         case 'autocomp':
             _html = '';
             break;
-        
+
         case 'channel':
             dialog_id = 'conversation';
             _html = '<div class="chatbox">' +
@@ -1490,11 +1490,11 @@ function constructDialog( dialog_id ) {
 }
 function dismissOKbox() {
     document.getElementById('okbox').innerHTML = '';
-    toggleClass('okbox','show','hide');        
+    toggleClass('okbox','show','hide');
 }
 function doShowChan( chan_id ) {
     if ( chan_id === '' || chan_id === undefined ) {
-        toggleClass('channel','show','hide');        
+        toggleClass('channel','show','hide');
     } else {
         toggleClassIfExists('channel','hide','show');
         if ( constructDialog('channel') ) {
@@ -1516,7 +1516,7 @@ function getChannelMessages( chan_id ) {
             access_token: access_token,
             include_html: 1,
             include_read: 1,
-            count: 200           
+            count: 200
         };
         $.ajax({
             url: window.apiURL + '/channels/' + chan_id + '/messages',
@@ -1656,9 +1656,28 @@ function buildRespondBar( post, is_convo ) {
         var post_source = post.source.name || 'unknown';
         html += '<span onclick="muteClient(\'' + post_source + '\');"><i class="fa fa-microphone-slash"></i></span>';
     }
+
+    if ( externalUrl = getExternalPostUrl( post ) ) {
+      html += '<span><a href="' + externalUrl + '"><i class="fa fa-link"></i></a></span>';
+    }
     html += '<span onclick="doMore(' + post.id + ');"><i class="fa fa-ellipsis-h"></i></span>' +
         '</div>';
     return html;
+}
+function getExternalPostUrl( post ) {
+      for ( a in post.annotations ) {
+        switch ( post.annotations[a].type ) {
+          case "net.app.core.crosspost":
+            return post.annotations[a].value.canonical_url;
+        }
+      }
+      for ( a in post.user.annotations ) {
+        switch ( post.user.annotations[a].type ) {
+          case "net.lukasrosenstock.federatedprofile":
+            return post.user.annotations[a].value.post_url_template.replace('{id}', post.id);
+        }
+      }
+      return null;
 }
 function isMention( post ) {
     var my_id = readStorage('user_id');
@@ -1682,7 +1701,7 @@ function getAccountNames( ids ) {
 
         var params = {
             access_token: access_token,
-            ids: id_list 
+            ids: id_list
         };
         $.ajaxSetup({
             beforeSend: function (xhr, settings) {
@@ -1719,7 +1738,7 @@ function updateTimestamps() {
                 var itms = document.getElementsByName( post_id + "-time" );
                 var tStr = humanized_time_span( window.posts[post_id].created_at ),
                     html = '';
-    
+
                 for ( var i = 0; i < itms.length; i++ ) {
                     html = document.getElementById( itms[i].id ).innerHTML;
                     if ( html != tStr ) { document.getElementById( itms[i].id ).innerHTML = tStr; } else { break; }
@@ -1925,7 +1944,7 @@ function setFollow( data ) {
     }
 }
 function doShowConv( post_id ) {
-    if ( post_id === '' || post_id === undefined ) {  
+    if ( post_id === '' || post_id === undefined ) {
         toggleClass('conversation','show','hide');
     } else {
         toggleClassIfExists('conversation','hide','show');
@@ -2100,7 +2119,7 @@ function showHideResponse() {
         document.getElementById('rpy-title').value = '';
         toggleClassIfExists('autocomp','show','hide');
         removeClassIfExists('rpy-box', 'longpost');
-        toggleClass('response','show','hide');        
+        toggleClass('response','show','hide');
         saveStorage('in_reply_to', '0');
     }
 }
@@ -2258,7 +2277,7 @@ function parseEmbedded( post ) {
                         var _innerHTML = ( post.annotations[i].value.title || false ) ? post.annotations[i].value.title : '';
                         var _vidid = post.annotations[i].value.link.replace('http://youtu.be/', '').replace('https://www.youtube.com/watch?v=', '').replace('https://m.youtube.com/watch?v=', '');
                         _vidid = _vidid.substring(0, _vidid.indexOf('&') != -1 ? _vidid.indexOf('&') : _vidid.length);
-    
+
                         if ( post.annotations[i].value.track || false ) {
                             if ( _innerHTML != '' ) { _innerHTML += ' - '; }
                             _innerHTML += post.annotations[i].value.track;
@@ -2438,13 +2457,13 @@ function doShowUserByName( user_name ) {
                 break;
             }
         }
-    }    
+    }
 }
 function doShowUser( user_id ) {
     if ( user_id === '' || user_id === undefined ) {
         toggleClass('dialog','show','hide');
     } else {
-        toggleClassIfExists('dialog','hide','show');        
+        toggleClassIfExists('dialog','hide','show');
         if ( constructDialog('dialog') ) {
             showWaitState('user_posts', 'Collecting User Information');
             getUserProfile( user_id );
@@ -2473,8 +2492,8 @@ function getHashDetails( name ) {
             include_annotations: 1,
             include_html: 1,
             hashtags: name,
-            count: 200            
-        };        
+            count: 200
+        };
         $.ajax({
             url: window.apiURL + '/posts/search',
             crossDomain: true,
@@ -2548,13 +2567,13 @@ function parseHashDetails( data, name ) {
                          post_mentions, post_reposted, post_starred, true, post_client );
         }
         document.getElementById( 'hash_posts' ).innerHTML = html;
-        toggleClassIfExists('hashbox','hide','show');        
+        toggleClassIfExists('hashbox','hide','show');
     }
 }
 function getReplyCharCount() {
     var post_text = document.getElementById( 'rpy-text' ).value.trim();
         post_text = post_text.replace(/([^"])(https?:\/\/([^\s"]+))/g, '').replace('[', '').replace(']', '');
-    return post_text.length;        
+    return post_text.length;
 }
 function calcReplyCharacters() {
     var max_length = parseInt( readStorage('post_length', true) ),
@@ -2574,7 +2593,7 @@ function calcReplyCharacters() {
         if ( rpy_length == max_length ) { toggleClassIfExists('rpy-send','btn-green','btn-grey'); }
     } else {
         addClass('rpy-length','red');
-        toggleClassIfExists('rpy-send','btn-green','btn-grey');        
+        toggleClassIfExists('rpy-send','btn-green','btn-grey');
     }
 }
 function doMuteHash( name ) { muteHashtag(name); }
@@ -2596,9 +2615,9 @@ function saveDraft() {
     showSaveDraft();
 }
 function getCaretPos(el) {
-    if (el.selectionStart) { 
-        return el.selectionStart; 
-    } else if (document.selection) { 
+    if (el.selectionStart) {
+        return el.selectionStart;
+    } else if (document.selection) {
         el.focus();
         var r = document.selection.createRange();
         if (r == null) { return 0; }
@@ -2890,7 +2909,7 @@ function humanized_time_span(date, ref_date, date_formats, time_units) {
         [60, 'minutes'],
         [1, 'seconds']
     ];
-  
+
     date = new Date(date);
     ref_date = ref_date ? new Date(ref_date) : new Date();
     var seconds_difference = (ref_date - date) / 1000;
@@ -3001,7 +3020,7 @@ function isMutedClient( name ) {
     var name = name.trim();
 
     for ( var idx = 0; idx <= clients.length; idx++ ) { if ( clients[idx] === name ) { return true; } }
-    return false;    
+    return false;
 }
 function muteAccount( ismuted, account_id ) {
     var access_token = readStorage('access_token');
@@ -3022,7 +3041,7 @@ function muteAccount( ismuted, account_id ) {
             type: action_type,
             success: function( data ) {
                 if ( parseMeta(data.meta) ) {
-                    var ds = data.data; 
+                    var ds = data.data;
                     showHidePostsFromAccount(ds.id, ds.you_muted);
                     saveStorage('msgTitle', 'Done and Done', true);
                     saveStorage('msgText', ((ds.you_muted) ? "You won't see any more posts from " + ds.username + "."
@@ -3057,7 +3076,7 @@ function blockAccount( isblocked, account_id ) {
             type: action_type,
             success: function( data ) {
                 if ( parseMeta(data.meta) ) {
-                    var ds = data.data; 
+                    var ds = data.data;
                     showHidePostsFromAccount(ds.id, ds.you_blocked);
                     saveStorage('msgTitle', 'Done and Done', true);
                     saveStorage('msgText', ((ds.you_blocked) ? "You won't see any more posts from " + ds.username + "."
@@ -3246,7 +3265,7 @@ function showUserList( type, account_id ) {
             access_token: access_token,
             include_html: 0,
             count: 200
-        }; 
+        };
         $.ajax({
             url: window.apiURL + '/users/' + account_id + '/' + type,
             crossDomain: true,
@@ -3298,7 +3317,7 @@ function getInteractions() {
             include_machine: 0,
             include_html: 1,
             count: 200
-        }; 
+        };
         $.ajax({
             url: window.apiURL + '/users/me/interactions',
             crossDomain: true,
